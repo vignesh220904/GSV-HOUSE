@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: var(--font-noto-tamil), 'Segoe UI', sans-serif;
+    --font-heading: var(--font-mukta-malar), 'Segoe UI', sans-serif;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0912;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #B8860B, #FFD700, #B8860B);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FFD700;
+}
+
+/* Metallic Shimmer Gold Text */
+.gold-text-shimmer {
+  background: linear-gradient(135deg, #FFFDF0 0%, #FFE082 25%, #FFD700 50%, #B8860B 75%, #FFFDF0 100%);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+  display: inline-block;
+  padding-bottom: 0.12em;
+  padding-top: 0.05em;
+  padding-right: 0.1em;
+  line-height: 1.25;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #D4AF37 0%, #FFD700 35%, #F3C623 70%, #996515 100%);
+}
+
+.gold-border-glow {
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.25), inset 0 0 15px rgba(255, 215, 0, 0.15);
+}
+
+.maroon-glass {
+  background: rgba(35, 9, 15, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+}
+
+.dark-glass {
+  background: rgba(15, 12, 24, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.gold-card-shine {
+  position: relative;
+  overflow: hidden;
+}
+.gold-card-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 215, 0, 0.08) 45%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 215, 0, 0.08) 55%,
+    transparent 100%
+  );
+  transform: rotate(30deg) translateY(-100%);
+  transition: transform 0.8s ease;
+}
+.gold-card-shine:hover::after {
+  transform: rotate(30deg) translateY(100%);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes floatLeaf {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-float {
+  animation: floatLeaf 5s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s infinite ease-in-out;
+}
+
+/* Door opening 3D perspective animations */
+.door-perspective {
+  perspective: 1200px;
+}
+
+.left-door {
+  transform-origin: left center;
+  transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.right-door {
+  transform-origin: right center;
+  transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.door-open .left-door {
+  transform: rotateY(-110deg);
+}
+
+.door-open .right-door {
+  transform: rotateY(110deg);
+}
+
