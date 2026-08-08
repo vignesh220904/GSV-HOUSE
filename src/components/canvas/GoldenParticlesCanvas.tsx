@@ -15,6 +15,7 @@ export const GoldenParticlesCanvas: React.FC = () => {
     let animationFrameId: number;
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
+    const isMobile = width < 768;
 
     const handleResize = () => {
       if (!canvas) return;
@@ -22,29 +23,31 @@ export const GoldenParticlesCanvas: React.FC = () => {
       height = canvas.height = window.innerHeight;
     };
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
-    const particleCount = 60;
+    // Reduce particle count on mobile for smooth 60fps
+    const particleCount = isMobile ? 20 : 50;
     const particles = Array.from({ length: particleCount }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
-      size: Math.random() * 2.5 + 0.8,
-      speedX: (Math.random() - 0.5) * 0.4,
-      speedY: -Math.random() * 0.6 - 0.2, // Drifting upwards softly
-      alpha: Math.random() * 0.8 + 0.2,
+      size: Math.random() * (isMobile ? 2.0 : 2.5) + 0.8,
+      speedX: (Math.random() - 0.5) * 0.3,
+      speedY: -Math.random() * 0.5 - 0.2,
+      alpha: Math.random() * 0.7 + 0.3,
       pulse: Math.random() * 0.02 + 0.005,
     }));
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      particles.forEach((p) => {
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
         p.x += p.speedX;
         p.y += p.speedY;
         p.alpha += Math.sin(Date.now() * p.pulse) * 0.01;
 
-        if (p.alpha < 0.1) p.alpha = 0.1;
-        if (p.alpha > 0.9) p.alpha = 0.9;
+        if (p.alpha < 0.2) p.alpha = 0.2;
+        if (p.alpha > 0.8) p.alpha = 0.8;
 
         if (p.y < 0) {
           p.y = height + 10;
@@ -53,15 +56,12 @@ export const GoldenParticlesCanvas: React.FC = () => {
         if (p.x < 0) p.x = width;
         if (p.x > width) p.x = 0;
 
-        ctx.save();
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 215, 0, ${p.alpha})`;
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = "#FFD700";
+        // Skip canvas shadowBlur for maximum mobile performance
         ctx.fill();
-        ctx.restore();
-      });
+      }
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -77,7 +77,7 @@ export const GoldenParticlesCanvas: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-10 opacity-70"
+      className="fixed inset-0 pointer-events-none z-10 opacity-70 will-change-transform"
     />
   );
 };

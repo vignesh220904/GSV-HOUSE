@@ -5,11 +5,17 @@
     --font-sans: var(--font-noto-tamil), 'Segoe UI', sans-serif;
     --font-heading: var(--font-mukta-malar), 'Segoe UI', sans-serif;
   }
+  
+  html {
+    scroll-behavior: smooth;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #0B0912;
@@ -35,6 +41,7 @@
   padding-top: 0.05em;
   padding-right: 0.1em;
   line-height: 1.25;
+  will-change: background-position;
 }
 
 .gold-gradient-bg {
@@ -46,17 +53,25 @@
 }
 
 .maroon-glass {
-  background: rgba(35, 9, 15, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.25);
+  background: rgba(35, 9, 15, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
 .dark-glass {
-  background: rgba(15, 12, 24, 0.7);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 215, 0, 0.2);
+  background: rgba(15, 12, 24, 0.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+}
+
+/* Mobile Performance Optimization for Backdrop Blurs */
+@media (max-width: 768px) {
+  .maroon-glass, .dark-glass {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
 }
 
 .gold-card-shine {
@@ -99,7 +114,7 @@
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-10px) rotate(3deg);
+    transform: translateY(-8px) rotate(2deg);
   }
   100% {
     transform: translateY(0px) rotate(0deg);
@@ -108,6 +123,7 @@
 
 .animate-float {
   animation: floatLeaf 5s ease-in-out infinite;
+  will-change: transform;
 }
 
 @keyframes pulseGlow {
@@ -117,7 +133,7 @@
   }
   50% {
     opacity: 0.8;
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 }
 
@@ -133,11 +149,13 @@
 .left-door {
   transform-origin: left center;
   transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
 }
 
 .right-door {
   transform-origin: right center;
   transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
 }
 
 .door-open .left-door {
@@ -147,4 +165,3 @@
 .door-open .right-door {
   transform: rotateY(110deg);
 }
-
