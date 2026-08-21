@@ -33,7 +33,7 @@ export const HeaderNav: React.FC = () => {
     { label: "முகப்பு", href: "#hero", icon: Home },
     { label: "நேரக்கணிப்பு", href: "#countdown", icon: Clock },
     { label: "அழைப்பிதழ்", href: "#invitation", icon: Sparkles },
-    { label: "புகைப்படங்கள்", href: "#gallery", icon: ImageIcon },
+    { label: "புகைப்படம் & வீடியோ", href: "#gallery", icon: ImageIcon },
     { label: "நிகழ்ச்சி நிரல்", href: "#agenda", icon: Clock },
     { label: "வழிகாட்டுதல்", href: "#map", icon: MapPin },
   ];
